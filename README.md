@@ -27,3 +27,11 @@ When I heard about SQLAlchemy's built in pooler
 
 Docker Swarm over K8:
 Chosen for simplicity and time. Swarm integrates directly with docker compose, making it the simpler of the two option to set up and use.
+
+Scalability:
+To my knowledge, Postgres handles large tables well. The issue would arise when searching a table with 10 million users. 
+In order to fix this, I made email unique index.
+The API's work as the load balancers, which could scale becasue they do not hold a server-local state. 
+Traefik is automatic, means it doesnt need a seperate configuration per load balancer.
+Redis handles the latency state and possible high frequences the app needs, giving it elastcitiy.
+Connection pooling is handled by SQLAlchemy's async engine. For futerproofing, a pgbouncer would be the natural next step.
